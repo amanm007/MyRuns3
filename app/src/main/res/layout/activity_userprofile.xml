@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".UserProfileActivity">
+
+        <TextView
+            android:id="@+id/appPhotoLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="40dp"
+            android:text="Profile Photo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/appNameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:text="Name"
+            app:layout_constraintStart_toStartOf="@+id/appPhotoLabel"
+            app:layout_constraintTop_toBottomOf="@+id/appPhotoLabel" />
+
+        <TextView
+            android:id="@+id/appEmailLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="55dp"
+            android:text="Email"
+            app:layout_constraintStart_toStartOf="@+id/appNameLabel"
+            app:layout_constraintTop_toBottomOf="@+id/appNameLabel" />
+
+        <TextView
+            android:id="@+id/appPhoneLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:text="Phone"
+            app:layout_constraintStart_toStartOf="@+id/appEmailLabel"
+            app:layout_constraintTop_toBottomOf="@+id/appEmailLabel" />
+
+        <TextView
+            android:id="@+id/appGenderLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="Gender"
+            app:layout_constraintStart_toStartOf="@+id/appPhoneLabel"
+            app:layout_constraintTop_toBottomOf="@+id/appPhoneLabel" />
+
+        <TextView
+            android:id="@+id/appClassLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:text="Class"
+            app:layout_constraintStart_toStartOf="@+id/appGenderLabel"
+            app:layout_constraintTop_toBottomOf="@+id/appGenderLabel" />
+
+        <TextView
+            android:id="@+id/appMajorLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginTop="50dp"
+            android:text="Major"
+            app:layout_constraintStart_toStartOf="@+id/appClassLabel"
+            app:layout_constraintTop_toBottomOf="@+id/appClassLabel" />
+
+        <EditText
+            android:id="@+id/etNameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginStart="-100dp"
+            android:layout_marginBottom="25dp"
+            android:ems="10"
+            android:hint=" eg. John Smith"
+            android:inputType="text"
+            app:layout_constraintBottom_toTopOf="@+id/edetEmailLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/appNameLabel" />
+
+        <EditText
+            android:id="@+id/edetEmailLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="36dp"
+            android:ems="10"
+            android:hint="eg. abc@xyz.com"
+            android:inputType="text"
+            app:layout_constraintStart_toEndOf="@+id/appEmailLabel"
+            app:layout_constraintTop_toBottomOf="@+id/appNameLabel" />
+
+        <EditText
+            android:id="@+id/etPhoneLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:hint=" +123456789"
+            android:inputType="number"
+            app:layout_constraintStart_toEndOf="@+id/appPhoneLabel"
+            app:layout_constraintTop_toBottomOf="@+id/edetEmailLabel" />
+
+        <EditText
+            android:id="@+id/etClassLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="125dp"
+            android:ems="10"
+            android:hint="cmpt, iat, cmns,etc."
+            android:inputType="text"
+            app:layout_constraintStart_toEndOf="@+id/appClassLabel"
+            app:layout_constraintTop_toBottomOf="@+id/etPhoneLabel" />
+
+        <EditText
+            android:id="@+id/etMajorLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="30dp"
+            android:ems="10"
+            android:hint="cs, iat or, etc."
+            android:inputType="text"
+            app:layout_constraintStart_toEndOf="@+id/appMajorLabel"
+            app:layout_constraintTop_toBottomOf="@+id/etClassLabel" />
+
+        <RadioGroup
+            android:id="@+id/genderRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/appGenderLabel"
+            app:layout_constraintTop_toBottomOf="@+id/appGenderLabel">
+
+            <RadioButton
+                android:id="@+id/etMaleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="25dp"
+                android:text="Male" />
+
+            <RadioButton
+                android:id="@+id/etfemalelabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/appsavelabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="40dp"
+            android:text="SAVE"
+            app:layout_constraintEnd_toStartOf="@+id/appclearlabel"
+            app:layout_constraintTop_toBottomOf="@+id/etMajorLabel" />
+
+        <Button
+            android:id="@+id/appclearlabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="100dp"
+            android:text="CLEAR"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etMajorLabel" />
+
+        <ImageButton
+            android:id="@+id/appImageButtonLabel"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="148dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="Profile Image Button"
+            android:src="@android:drawable/ic_menu_camera"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/capturedImageView"
+            android:layout_width="93dp"
+            android:layout_height="96dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginBottom="27dp"
+            android:contentDescription="Profile Image"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toTopOf="@+id/etNameLabel"
+            app:layout_constraintStart_toEndOf="@+id/appPhotoLabel"
+            />
+
+        <Button
+            android:id="@+id/changebuttonLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="60dp"
+            android:text="CHANGE"
+            app:layout_constraintStart_toEndOf="@+id/appImageButtonLabel"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

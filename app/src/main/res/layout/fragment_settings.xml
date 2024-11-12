@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <!-- Account Preferences Section -->
+        <!--User Profile,Privacy -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@android:color/white"
+            android:padding="16dp"
+            android:layout_marginBottom="50dp"
+            android:layout_marginTop="8dp"
+            android:elevation="2dp">
+
+            <TextView
+                android:id="@+id/accountPreferencesHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4dp"
+                android:text="Account Preferences"
+                android:textColor="@android:color/holo_purple"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/accountInfoText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingStart="4dp"
+                android:text="Name, Email, Class, etc."
+                android:textColor="#673AB7"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/userProfileHintTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingStart="4dp"
+                android:text="User Profile"
+                android:textColor="#706E6E"
+                android:textSize="14sp" />
+
+
+            <CheckBox
+                android:id="@+id/privacyCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Privacy Setting"
+                android:paddingStart="4dp" />
+
+
+            <TextView
+                android:id="@+id/privacyHintTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Posting your records anonymously"
+                android:paddingStart="8dp"
+                android:textColor="#706E6E"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- Additional Settings  -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@android:color/white"
+            android:padding="16dp"
+            android:layout_marginBottom="50dp"
+            android:elevation="2dp">
+
+            <TextView
+                android:id="@+id/additionalSettingsHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4dp"
+                android:text="Additional Settings"
+                android:textColor="@android:color/holo_purple"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/unitPreferenceTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Unit Preference"
+                android:layout_marginTop="10dp"
+                android:textSize="16sp"
+                android:paddingTop="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:textColor="#434242" />
+
+
+            <TextView
+                android:id="@+id/commentsTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Comments"
+                android:textSize="16sp"
+                android:paddingTop="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:textColor="#434242" />
+        </LinearLayout>
+
+        <!-- Miscellaneous  -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@android:color/white"
+            android:padding="16dp"
+            android:elevation="2dp">
+
+            <TextView
+                android:id="@+id/miscellaneousHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4dp"
+                android:text="Miscellaneous"
+                android:textColor="@android:color/holo_purple"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/webpageTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Webpage"
+                android:paddingTop="8dp"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/linkTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="4dp"
+                android:paddingTop="4dp"
+                android:text="https://www.sfu.ca/computing.html"
+                android:textColor="?android:attr/colorPrimary"
+                android:clickable="true"
+                android:focusable="true"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
