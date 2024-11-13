@@ -20,6 +20,7 @@ data class ExerciseEntry(
     val climb: Double,
     val heartRate: Double,
     val comment: String,
-    // BLOB
-    val locationList: ByteArray
+    val locationList: ByteArray,
+    val routePoints: String
+
 )

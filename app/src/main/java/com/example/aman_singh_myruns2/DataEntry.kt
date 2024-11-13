@@ -102,7 +102,8 @@ class DataEntry : AppCompatActivity() {
                 climb = 0.0,
                 heartRate = heartRate.toDouble(),
                 comment = comments,
-                locationList = ByteArray(0)
+                locationList = ByteArray(0), routePoints = ""
+
             )
 
 
