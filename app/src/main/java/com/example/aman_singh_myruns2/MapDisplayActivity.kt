@@ -1,19 +1,19 @@
+package com.example.aman_singh_myruns2
+
+import TrackingService
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
 import android.os.Bundle
-import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.aman_singh_myruns2.ExerciseEntry
-import com.example.aman_singh_myruns2.MyApplication
-import com.example.aman_singh_myruns2.R
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
@@ -22,24 +22,40 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-public class MapDisplayActivity : AppCompatActivity(), OnMapReadyCallback {
+class MapDisplayActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var map: GoogleMap
     private lateinit var polylineOptions: PolylineOptions
-    private val routePoints = mutableListOf<LatLng>() // Store route points
+    private val routePoints = mutableListOf<LatLng>()
+    private lateinit var activityTypeText: TextView
+    private lateinit var avgSpeedText: TextView
+    private lateinit var currentSpeedText: TextView
+    private lateinit var climbText: TextView
+    private lateinit var calorieText: TextView
+    private lateinit var distanceText: TextView
+    private var activityType: String? = null
+
+    private var startTime: Long = 0L
+    private var endTime: Long = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mapdisplay)
 
+        activityType = intent.getStringExtra("ACTIVITY_TYPE") ?: "Unknown"
+
+        activityTypeText = findViewById(R.id.activity_type)
+        avgSpeedText = findViewById(R.id.avg_speed)
+        currentSpeedText = findViewById(R.id.current_speed)
+        climbText = findViewById(R.id.climb)
+        calorieText = findViewById(R.id.calorie)
+        distanceText = findViewById(R.id.distance)
+
+        activityTypeText.text = "Type: $activityType"
+
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        findViewById<Button>(R.id.start_tracking).setOnClickListener {
-            startTracking()
-        }
-        findViewById<Button>(R.id.stop_tracking).setOnClickListener {
-            stopTracking()
-        }
+
 
         registerReceiver(locationReceiver, IntentFilter("ACTION_LOCATION_UPDATE"))
     }
@@ -56,12 +72,21 @@ public class MapDisplayActivity : AppCompatActivity(), OnMapReadyCallback {
             val speed = intent.getFloatExtra("speed", 0f)
             val location = LatLng(latitude, longitude)
 
-            routePoints.add(location) // Add point to the route
-            map.addMarker(MarkerOptions().position(location))
-            polylineOptions.add(location)
-            map.addPolyline(polylineOptions)
+            if (routePoints.isEmpty()) {
+                map.addMarker(
+                    MarkerOptions().position(location)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                        .title("Start")
+                )
+                startTime = System.currentTimeMillis() // Record the start time on the first location update
+            }
 
-            findViewById<TextView>(R.id.speed).text = "Speed: $speed m/s"
+            routePoints.add(location)
+            map.addPolyline(polylineOptions.add(location))
+
+            currentSpeedText.text = "Cur speed: %.2f m/h".format(speed)
+            distanceText.text = "Distance: %.2f Miles".format(calculateTotalDistance(routePoints))
+
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15f))
         }
     }
@@ -75,10 +100,17 @@ public class MapDisplayActivity : AppCompatActivity(), OnMapReadyCallback {
         val intent = Intent(this, TrackingService::class.java)
         stopService(intent)
 
-        // Convert route points to JSON using Gson
+        if (routePoints.isNotEmpty()) {
+            map.addMarker(
+                MarkerOptions().position(routePoints.last())
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+                    .title("End")
+            )
+            endTime = System.currentTimeMillis() // Record the end time when tracking stops
+        }
+
         val routePointsJson = Gson().toJson(routePoints)
 
-        // Create an ExerciseEntry with route points
         val exerciseEntry = ExerciseEntry(
             inputType = 2, // Assuming GPS/automatic
             activityType = 1, // Adjust to the relevant activity type
@@ -91,17 +123,15 @@ public class MapDisplayActivity : AppCompatActivity(), OnMapReadyCallback {
             climb = 0.0,
             heartRate = 0.0,
             comment = "",
-            locationList = ByteArray(0), // Update as needed
+            locationList = ByteArray(0),
             routePoints = routePointsJson
         )
 
-        // Save to the database
         saveExerciseEntryToDatabase(exerciseEntry)
     }
 
     private fun saveExerciseEntryToDatabase(entry: ExerciseEntry) {
         CoroutineScope(Dispatchers.IO).launch {
-            // Access your database and insert entry
             (application as MyApplication).repository.insert(entry)
         }
     }
@@ -112,8 +142,11 @@ public class MapDisplayActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun calculateDuration(): Double {
-        // Calculate duration based on tracking start and stop times
-        return 0.0 // Implement as needed
+        return if (endTime > startTime) {
+            (endTime - startTime) / (1000 * 60.0) // Convert milliseconds to minutes
+        } else {
+            0.0
+        }
     }
 
     private fun calculateTotalDistance(points: List<LatLng>): Double {
@@ -129,11 +162,16 @@ public class MapDisplayActivity : AppCompatActivity(), OnMapReadyCallback {
             )
             totalDistance += result[0]
         }
-        return totalDistance
+        return totalDistance / 1609.34 // Convert meters to miles
     }
 
     private fun calculateAverageSpeed(points: List<LatLng>): Double {
-        // Calculate average speed based on duration and distance
-        return 0.0 // Implement as needed
+        val totalDistance = calculateTotalDistance(points) // in miles
+        val durationInHours = calculateDuration() / 60.0 // Convert minutes to hours
+        return if (durationInHours > 0) {
+            totalDistance / durationInHours // in miles per hour
+        } else {
+            0.0
+        }
     }
 }
