@@ -2,6 +2,7 @@ package com.example.aman_singh_myruns2
 
 import android.content.Context
 import androidx.room.Room
+import androidx.room.RoomDatabase
 
 object DatabaseBuilder {
     @Volatile
@@ -18,6 +19,10 @@ object DatabaseBuilder {
             context.applicationContext,
             AppDatabase::class.java,
             "exercise_entries.db"
-        ).build()
+
+        ) .fallbackToDestructiveMigration()
+            .setJournalMode(RoomDatabase.JournalMode.TRUNCATE)
+            .build()
+
     }
 }

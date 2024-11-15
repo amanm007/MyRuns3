@@ -6,6 +6,7 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -14,14 +15,29 @@
         android:title="Entry Details"
         android:titleTextColor="@android:color/white" />
 
+
+    <FrameLayout
+        android:id="@+id/mapContainer"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginTop="16dp"
+        android:visibility="gone">
+
+        <fragment
+            android:id="@+id/map_fragment"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+    <!-- Entry Details -->
     <TextView
         android:id="@+id/inputTypeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:layout_marginBottom="12dp"
-        android:layout_marginTop="50dp"
         android:textSize="18sp" />
-
 
     <TextView
         android:id="@+id/activityTypeTextView"
@@ -71,6 +87,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
         android:textSize="18sp" />
+
 
     <Button
         android:id="@+id/deleteButton"

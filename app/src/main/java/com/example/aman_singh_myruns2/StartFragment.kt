@@ -10,14 +10,15 @@ import android.widget.Button
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
 
-class StartFragment: Fragment (){
+class StartFragment : Fragment() {
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_start, container, false)
 
-        // Initializing our input type spinner
+        // Initializing input type spinner
         val inputTypeSpinner: Spinner = view.findViewById(R.id.inputTypeSpinner)
         ArrayAdapter.createFromResource(
             requireContext(),
@@ -28,7 +29,7 @@ class StartFragment: Fragment (){
             inputTypeSpinner.adapter = adapter
         }
 
-        // Initializing our activityies type spinner
+        // Initializing activity type spinner
         val activityTypeSpinner: Spinner = view.findViewById(R.id.activityTypeSpinner)
         ArrayAdapter.createFromResource(
             requireContext(),
@@ -38,36 +39,32 @@ class StartFragment: Fragment (){
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             activityTypeSpinner.adapter = adapter
         }
-        //to check if user selects Automatic or Gps and then hits start then ---> Gps MAP
-        //if not the Manual Data Entry
-        /*
-        val startButton: Button = view.findViewById(R.id.startButton)
-        startButton.setOnClickListener {
-            val selectedInputType = inputTypeSpinner.selectedItem.toString()
-            val intent = when (selectedInputType) {
-                "Automatic", "GPS" -> Intent(activity, MapDisplayActivity::class.java)
-                "Manual Entry" -> Intent(activity, DataEntry::class.java)
-                else -> null
-            }
-            intent?.let { startActivity(it) }
-        }
 
-         */
+        // Set up start button click listener
         val startButton: Button = view.findViewById(R.id.startButton)
         startButton.setOnClickListener {
             val selectedInputType = inputTypeSpinner.selectedItem.toString()
             val selectedActivityTypePosition = activityTypeSpinner.selectedItemPosition
 
+            // Determine which activity to start based on selected input type
             val intent = when (selectedInputType) {
-                "Automatic", "GPS" -> Intent(activity, MapDisplayActivity::class.java)
+                "Automatic", "GPS" -> {
+                    // Pass both input type and activity type to MapDisplayActivity
+                    Intent(activity, MapDisplayActivity::class.java).apply {
+                        putExtra("INPUT_TYPE", selectedInputType)
+                        putExtra("ACTIVITY_TYPE", selectedActivityTypePosition)
+                    }
+                }
                 "Manual Entry" -> {
-                    // Create an intent for DataEntry and put the selected activity type position as an extra
+                    // Pass the activity type to DataEntry
                     Intent(activity, DataEntry::class.java).apply {
                         putExtra("ACTIVITY_TYPE", selectedActivityTypePosition)
                     }
                 }
                 else -> null
             }
+
+            // Start the appropriate activity
             intent?.let { startActivity(it) }
         }
 

@@ -62,6 +62,7 @@
 
         <activity android:name=".DataEntry" />
         <activity android:name=".SavedEntryActivity" />
+        <service android:name=".TrackingService" />
 
     </application>
 
